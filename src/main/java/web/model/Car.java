@@ -10,4 +10,16 @@ public class Car {
         this.series = series;
         this.color = color;
     }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getSeries() {
+        return series;
+    }
+
+    public String getColor() {
+        return color;
+    }
 }
