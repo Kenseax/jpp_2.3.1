@@ -1,16 +1,13 @@
 package web.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Car {
     private String model;
     private int series;
     private String color;
+
+    public Car(String model, int series, String color) {
+        this.model = model;
+        this.series = series;
+        this.color = color;
+    }
 }
