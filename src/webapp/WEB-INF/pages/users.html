@@ -18,7 +18,7 @@
         <td><p th:text="${u.id}"></p></td>
         <td><a th:href="@{/users/{id}(id=${u.id})}" th:text="${u.username}"><p th:text="${u.username}"></p></a></td>
         <td><p th:text="${u.email}"></p></td>
-        <td><p style="-webkit-text-security: circle"  th:text="${u.password}"></p></td>
+        <td><p style="-webkit-text-security: disc"  th:text="${u.password}"></p></td>
         <td>
             <form th:method="GET" th:action="@{/users/{id}/edit(id=${u.id})}">
                 <input type="submit" value="Edit">
@@ -30,6 +30,6 @@
     </tr>
 </table>
 <br>
-<input type="button" value="Add new" onclick="window.location.href = '/users/add'"/>
+<input type="button" value="Add new user" onclick="window.location.href = '/users/add'"/>
 </body>
 </html>
