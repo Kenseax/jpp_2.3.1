@@ -1,12 +1,13 @@
 package web.config;
 
-import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
+import java.util.EnumSet;
 
-public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer implements WebApplicationInitializer {
 
     // Метод, указывающий на класс конфигурации
     @Override
@@ -30,14 +31,19 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        super.onStartup(servletContext);
-        registerHiddenFieldFilter(servletContext);
+    public void onStartup(ServletContext context) throws ServletException {
+        super.onStartup(context);
+        registerCharacterEncodingFilter(context);
     }
 
-    private void registerHiddenFieldFilter(ServletContext context) {
-        context.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
-                .addMappingForUrlPatterns(null, true, "/*");
-    }
+    private void registerCharacterEncodingFilter(ServletContext context) {
+        EnumSet<DispatcherType> dispatcherTypes =
+                EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
+        CharacterEncodingFilter characterEncodingFilter =
+                new CharacterEncodingFilter("UTF-8", true, true);
+
+        context.addFilter("encoding", characterEncodingFilter)
+                .addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+    }
 }
